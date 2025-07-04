@@ -42,10 +42,13 @@ public class LabSeqController {
     @GET
     @Path("/{n}")
     public Response calculateNumber(@PathParam("n") int n) {
-        if (n < 0) {
-            LOGGER.error("Input 'n' must be >= 0 and the provided was negative: " + n);
+        if (n < 0 || n > 500000) {
+            String message = n < 0
+                    ? "Input 'n' must not be negative. Provided: " + n
+                    : "Input 'n' must not exceed 500000. Provided: " + n;
+            LOGGER.error(message);
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Input 'n' must not be negative. Provided: " + n)
+                    .entity(message)
                     .build();
         }
 

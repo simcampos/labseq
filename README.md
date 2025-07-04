@@ -144,6 +144,7 @@ To run the application, you can use the Quarkus CLI or Maven.
      0, 1, 0, 1, 1, 1, 1, 2, 2, 2, 3, ...
      ```
    - The controller receives a non-negative integer `n` and returns the value of the sequence at that index.
+   - If `n` is larger than 500000, the service returns a 400 Bad Request response. This is to prevent OutOfMemoryError or performance issues with large values of `n`.
    - The project uses Logger to log the requests and responses, which can be useful for debugging and monitoring.
    - If the index is negative, the service should return a 400 Bad Request response.
    - It passes the request to the service, which calculates the value based on the sequence definition.
@@ -161,6 +162,7 @@ To run the application, you can use the Quarkus CLI or Maven.
 
 ## 7. Final Notes
 - The project is structured to follow the best practices of Quarkus and Java development.
+- On a single Thread, the service can handle requests for `n` up to a large number without blocking the main thread. This will depend on the available memory and the performance of the machine running the service.
 - If a sequential multithreading is needed, the service can be modified to use a thread pool or other concurrency mechanisms.
 - That way the service can handle larger values of `n` without blocking the main thread.
 - Of course because after the first request of a number because all positions are saved in the repository, the next request for the same number and under it will be very fast.

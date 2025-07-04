@@ -23,16 +23,10 @@ public class CalculationService {
 
     public BigInteger calculateSequenceValue(int n) {
         if (cacheRepository.isCachedByKey(n)) return cacheRepository.getValueFromCache(n);
-
-        for (int i = 4; i <= n; i++) {
-            if (!cacheRepository.isCachedByKey(i)) {
-                BigInteger result = cacheRepository.getValueFromCache(i - OP_1_SUBTRACTOR)
-                        .add(cacheRepository.getValueFromCache(i - OP_2_SUBTRACTOR));
-                LOGGER.debug("Calculated value for " + n + " is " + result);
-                cacheRepository.cacheValue(i, result);
-            }
+        int lastIndex = cacheRepository.getCacheSize();
+        for (int i = lastIndex; i <= n; i++) {
+            cacheRepository.cacheValue(i, cacheRepository.getValueFromCache(i - OP_1_SUBTRACTOR).add(cacheRepository.getValueFromCache(i - OP_2_SUBTRACTOR)));
         }
-
         return cacheRepository.getValueFromCache(n);
     }
 }

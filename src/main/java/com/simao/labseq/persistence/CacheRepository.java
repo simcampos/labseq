@@ -10,5 +10,6 @@ public interface CacheRepository {
     void cacheValue(int key, BigInteger value);
     BigInteger getValueFromCache(int key);
     boolean isCachedByKey(int key);
+    int getCacheSize();
 }
 

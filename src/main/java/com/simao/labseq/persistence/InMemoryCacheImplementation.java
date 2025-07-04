@@ -18,10 +18,10 @@ public class InMemoryCacheImplementation implements CacheRepository {
     private static final Logger LOGGER = Logger.getLogger(InMemoryCacheImplementation.class);
 
     public InMemoryCacheImplementation() {
-        cache.putIfAbsent(0, BigInteger.valueOf(0L));
-        cache.putIfAbsent(1, BigInteger.valueOf(1L));
-        cache.putIfAbsent(2, BigInteger.valueOf(0L));
-        cache.putIfAbsent(3, BigInteger.valueOf(1L));
+        cache.putIfAbsent(0, BigInteger.ZERO);
+        cache.putIfAbsent(1, BigInteger.ONE);
+        cache.putIfAbsent(2, BigInteger.ZERO);
+        cache.putIfAbsent(3, BigInteger.ONE);
     }
 
     @Override
@@ -36,8 +36,11 @@ public class InMemoryCacheImplementation implements CacheRepository {
 
     @Override
     public boolean isCachedByKey(int key) {
-        boolean isCacheHit = cache.containsKey(key);
-        if(isCacheHit) LOGGER.debug("Cache hit for key: " + key);
-        return isCacheHit;
+        return cache.containsKey(key);
+    }
+
+    @Override
+    public int getCacheSize() {
+        return cache.size();
     }
 }
