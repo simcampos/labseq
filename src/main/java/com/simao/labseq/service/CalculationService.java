@@ -13,7 +13,6 @@ import java.math.BigInteger;
 @ApplicationScoped
 public class CalculationService {
     private final CacheRepository cacheRepository;
-    private static final Logger LOGGER = Logger.getLogger(CalculationService.class.getName());
     private static final int OP_1_SUBTRACTOR = 4;
     private static final int OP_2_SUBTRACTOR = 3;
 
